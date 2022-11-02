@@ -13,8 +13,7 @@ const db = mysql.createConnection(
     console.log('Connected to the business_db.')
 );
 
-// function init() {
-
+// function init () {
 //     art.font('Employee Tracker', 'doom', (err, rendered) => {
 //         if (err) {
 //             console.log(err);
@@ -23,7 +22,8 @@ const db = mysql.createConnection(
 //             menu();
 //         }
 //     });
-// };
+// }
+    
 
 function roles() {
     inquirer.prompt ([
@@ -139,5 +139,6 @@ function menu() {
     });
 }
 
-menu();
+
 // init();
+menu();
