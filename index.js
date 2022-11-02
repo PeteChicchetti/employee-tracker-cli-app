@@ -25,6 +25,43 @@ const db = mysql.createConnection(
 //     });
 // };
 
+function roles() {
+    inquirer.prompt ([
+        {
+            type: 'list',
+            message: 'What is the employees role?',
+            choices: [
+                'Lead Tech',
+                'Technician',
+                'Lead Installer',
+                'Installer',
+                'HR Admin'
+            ],
+            name: 'title'
+        },
+        {
+            type: 'input',
+            message: 'What is the employees salary?',
+            name: 'salary'
+        },
+        {
+            type: 'input',
+            message: 'Input a number that corresponds to the correct employee department. "1" for Service, "2" for Installation or "3" for Human Resources.',
+            name: 'department_id'
+        },
+    ]).then(answers => {
+        db.query('INSERT INTO roles SET ?', answers, function (err, results) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(`Title: ${answers.title}, Salary: ${answers.salary}, Department: ${answers.department_id}`);
+                menu();
+            }
+        });
+    });
+}
+
+
 function employee() {
     inquirer.prompt ([
         {
@@ -42,7 +79,6 @@ function employee() {
             message: 'Input a number that corresponds to the correct employee role. "1" for Lead Teach, "2" for Technician, "3" for Lead Installer, "4" for Installer or "5" for HR Admin.',
             name: 'role_id'
         },
-        // let newEmployee = {${answers.fName}}
     ]).then(answers => {
         db.query('INSERT INTO employee SET ?', answers, function (err, results) {
             if (err) {
@@ -52,7 +88,7 @@ function employee() {
                 menu();
             }
         });
-    })
+    });
 }        
 
 function menu() {
@@ -92,8 +128,19 @@ function menu() {
                     menu();
                 }
             });
+        } else if (answers.selection === 'View All Roles') {
+            db.query('Select title FROM roles', function (err, results) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.table(results);
+                    menu();
+                }
+            });    
         } else if (answers.selection === 'Add Employee') {
             employee();
+        } else if (answers.selection === 'Add Role') {
+            roles();
         }
         
     });
