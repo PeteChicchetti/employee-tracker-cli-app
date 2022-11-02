@@ -25,19 +25,57 @@ const db = mysql.createConnection(
 //     });
 // };
 
+function employee() {
+    inquirer.prompt ([
+        {
+            type: 'input',
+            message: 'What is the employees first name?',
+            name: 'fName'
+        },
+        {
+            type: 'input',
+            message: 'What is the employees last name?',
+            name: 'lName'
+        },
+        {
+            type: 'list',
+            message: 'What is the employees role id?',
+            choices: [
+                'Lead Technician',
+                'Technician',
+                'Lead Installer',
+                'Installer',
+                'HR Admin'
+            ],
+            name: 'role'
+        },
+        // let newEmployee = {${answers.fName}}
+    ]).then(answers => {
+        db.query('INSET INTO employee SET ?', answers, function (err, results) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(`${answers.first_name} ${answers.last_name} added to Roles.`);
+                console.table(results);
+                menu();
+            }
+        });
+    })
+}        
+
 function menu() {
     inquirer.prompt ([
         {
             type: 'list',
             message: 'What would you like to do?',
             choices: [
-                'View All Employees',
-                'Add Employee',
-                'Update Employee Role',
-                'View All Roles',
-                'Add Role',
                 'View All Departments',
-                'Add Department'
+                'View All Employees',
+                'View All Roles',
+                'Add Employee',
+                'Add Role',
+                'Add Department',
+                'Update Employee Role'
             ],
             name: 'selection',
         }
@@ -50,9 +88,13 @@ function menu() {
                     console.log(err);
                 } else {
                     console.table(results);
+                    menu();
                 }
             });
+        } else if (answers.selection === 'Add Employee') {
+            employee();
         }
+        
     });
 }
 
