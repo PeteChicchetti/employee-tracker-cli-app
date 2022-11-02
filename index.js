@@ -48,7 +48,7 @@ function employee() {
             if (err) {
                 console.log(err);
             } else {
-                console.log(`${answers.first_name} ${answers.last_name} ${answers.role_id}`);
+                console.log(`First: ${answers.first_name}, Last: ${answers.last_name}, Role ID: ${answers.role_id}`);
                 menu();
             }
         });
@@ -76,6 +76,15 @@ function menu() {
 
         if(answers.selection === 'View All Employees') {
             db.query('Select * FROM employee', function (err, results) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.table(results);
+                    menu();
+                }
+            });
+        } else if (answers.selection === 'View All Departments') {
+            db.query('Select name FROM department', function (err, results) {
                 if (err) {
                     console.log(err);
                 } else {
