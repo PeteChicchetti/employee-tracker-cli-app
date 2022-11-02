@@ -28,15 +28,8 @@ const db = mysql.createConnection(
 function roles() {
     inquirer.prompt ([
         {
-            type: 'list',
-            message: 'What is the employees role?',
-            choices: [
-                'Lead Tech',
-                'Technician',
-                'Lead Installer',
-                'Installer',
-                'HR Admin'
-            ],
+            type: 'input',
+            message: 'What is the name of the role?',
             name: 'title'
         },
         {
