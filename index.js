@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
+const art = require('asciiart-logo');
 
 // Connect to 
 const db = mysql.createConnection(
@@ -12,8 +13,19 @@ const db = mysql.createConnection(
     console.log('Connected to the business_db.')
 );
 
-function init() {
-    
+// function init() {
+
+//     art.font('Employee Tracker', 'doom', (err, rendered) => {
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             console.log(rendered);
+//             menu();
+//         }
+//     });
+// };
+
+function menu() {
     inquirer.prompt ([
         {
             type: 'list',
@@ -31,7 +43,18 @@ function init() {
         }
     ]).then(answers => {
         console.log(answers);
-    });
-};
 
-init();
+        if(answers.selection === 'View All Employees') {
+            db.query('Select * FROM employee', function (err, results) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.table(results);
+                }
+            });
+        }
+    });
+}
+
+menu();
+// init();
