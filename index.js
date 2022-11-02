@@ -30,33 +30,25 @@ function employee() {
         {
             type: 'input',
             message: 'What is the employees first name?',
-            name: 'fName'
+            name: 'first_name'
         },
         {
             type: 'input',
             message: 'What is the employees last name?',
-            name: 'lName'
+            name: 'last_name'
         },
         {
-            type: 'list',
-            message: 'What is the employees role id?',
-            choices: [
-                'Lead Technician',
-                'Technician',
-                'Lead Installer',
-                'Installer',
-                'HR Admin'
-            ],
-            name: 'role'
+            type: 'input',
+            message: 'Input a number that corresponds to the correct employee role. "1" for Lead Teach, "2" for Technician, "3" for Lead Installer, "4" for Installer or "5" for HR Admin.',
+            name: 'role_id'
         },
         // let newEmployee = {${answers.fName}}
     ]).then(answers => {
-        db.query('INSET INTO employee SET ?', answers, function (err, results) {
+        db.query('INSERT INTO employee SET ?', answers, function (err, results) {
             if (err) {
                 console.log(err);
             } else {
-                console.log(`${answers.first_name} ${answers.last_name} added to Roles.`);
-                console.table(results);
+                console.log(`${answers.first_name} ${answers.last_name} ${answers.role_id}`);
                 menu();
             }
         });
