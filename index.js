@@ -24,6 +24,25 @@ const db = mysql.createConnection(
 //     });
 // }
     
+function department() {
+    inquirer.prompt ([
+        {
+            type: 'input',
+            message: 'What is the name of the department?',
+            name: 'name'
+        }
+    ]).then(answers => {
+        db.query('INSERT INTO department SET ?', answers, function (err, results) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(`Name: ${answers.name}`);
+                menu();
+            }
+        });
+    });
+}
+
 
 function roles() {
     inquirer.prompt ([
@@ -134,6 +153,8 @@ function menu() {
             employee();
         } else if (answers.selection === 'Add Role') {
             roles();
+        } else if (answers.selection === 'Add Department') {
+            department();
         }
         
     });
