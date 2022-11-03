@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
-const art = require('asciiart-logo');
+const art = require('ascii-art');
 
 // Connect to 
 const db = mysql.createConnection(
@@ -13,16 +13,12 @@ const db = mysql.createConnection(
     console.log('Connected to the business_db.')
 );
 
-// function init () {
-//     art.font('Employee Tracker', 'doom', (err, rendered) => {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             console.log(rendered);
-//             menu();
-//         }
-//     });
-// }
+function init () {
+    art.font('Employee Tracker', 'doom', (err, rendered) => {
+            console.log(rendered);
+            menu();
+        });
+    };
     
 // function updateEmployeeRole() {
 //     inquirer.prompt ([
@@ -193,5 +189,4 @@ function menu() {
 }
 
 
-// init();
-menu();
+init();
