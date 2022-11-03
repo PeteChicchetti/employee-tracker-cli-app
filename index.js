@@ -38,11 +38,11 @@ function updateEmployeeRole() {
         },
         {
             type: 'input',
-            message: 'Input a number that corresponds to the NEW employee role. "1" for Lead Teach, "2" for Technician, "3" for Lead Installer, "4" for Installer or "5" for HR Admin.',
+            message: 'Input a number that corresponds to the NEW employee role. "1" for Lead Tech, "2" for Technician, "3" for Lead Installer, "4" for Installer or "5" for HR Admin.',
             name: 'role_id'
         },
     ]).then(answers => {
-        db.query(`SELECT first_name, last_name, role_id FROM employee WHERE first_name = ${answers.first_name}, last_name = ${answers.last_name} UPDATE employee SET role_id = ${answers.role_id} `, answers, function (err, results) {
+        db.query(`SELECT first_name, last_name, role_id FROM employee WHERE first_name = ${answers.first_name}, last_name = ${answers.last_name} UPDATE employee SET role_id = ${answers.role_id} WHERE first_name = ${answers.first_name}, last_name = ${answers.last_name} SELECT first_name, last_name, role_id FROM employee WHERE first_name = ${answers.first_name}, last_name = ${answers.last_name}`, answers, function (err, results) {
             if (err) {
                 console.log(err);
             } else {
@@ -118,7 +118,7 @@ function employee() {
         },
         {
             type: 'input',
-            message: 'Input a number that corresponds to the correct employee role. "1" for Lead Teach, "2" for Technician, "3" for Lead Installer, "4" for Installer or "5" for HR Admin.',
+            message: 'Input a number that corresponds to the correct employee role. "1" for Lead Tech, "2" for Technician, "3" for Lead Installer, "4" for Installer or "5" for HR Admin.',
             name: 'role_id'
         },
     ]).then(answers => {
