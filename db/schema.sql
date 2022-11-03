@@ -1,8 +1,10 @@
+/*----- Drop, Create and Use SQL DB -----*/
 DROP DATABASE IF EXISTS business_db;
 CREATE DATABASE business_db;
 
 USE business_db;
 
+/*----- Create Tables  -----*/
 CREATE TABLE department (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30)

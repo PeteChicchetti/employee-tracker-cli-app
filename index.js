@@ -2,7 +2,7 @@ const inquirer = require('inquirer');
 const mysql = require('mysql2');
 const art = require('ascii-art');
 
-// Connect to 
+// Connect to SQL DB
 const db = mysql.createConnection(
     {
         user: 'root',
@@ -13,6 +13,7 @@ const db = mysql.createConnection(
     console.log('Connected to the business_db.')
 );
 
+// Init function to display Ascii Art then run menu function
 function init () {
     art.font('Employee Tracker', 'doom', (err, rendered) => {
             console.log(rendered);
@@ -49,7 +50,7 @@ function init () {
 //     });
 // }
 
-
+// Function to add new department
 function department() {
     inquirer.prompt ([
         {
@@ -69,7 +70,7 @@ function department() {
     });
 }
 
-
+// Function to add new role
 function roles() {
     inquirer.prompt ([
         {
@@ -88,6 +89,7 @@ function roles() {
             name: 'department_id'
         },
     ]).then(answers => {
+        // Query to add a new role to DB using the values from Inquirer prompt
         db.query('INSERT INTO roles SET ?', answers, function (err, results) {
             if (err) {
                 console.log(err);
@@ -99,7 +101,7 @@ function roles() {
     });
 }
 
-
+// Function to add new employee
 function employee() {
     inquirer.prompt ([
         {
@@ -118,6 +120,7 @@ function employee() {
             name: 'role_id'
         },
     ]).then(answers => {
+        // Query to add a new emplyee to DB using the values from Inquirer prompt
         db.query('INSERT INTO employee SET ?', answers, function (err, results) {
             if (err) {
                 console.log(err);
@@ -129,6 +132,7 @@ function employee() {
     });
 }        
 
+// Function to run the menu prompt with initial options
 function menu() {
     inquirer.prompt ([
         {
@@ -147,7 +151,7 @@ function menu() {
         }
     ]).then(answers => {
         console.log(answers);
-
+        // If statement for each selection to run a query or call a function to run
         if(answers.selection === 'View All Employees') {
             db.query('SELECT employee.id, employee.first_name, employee.last_name, title, name AS department, roles.salary FROM employee JOIN roles ON employee.role_id = roles.id JOIN department ON roles.department_id = department.id', function (err, results) {
                 if (err) {

@@ -1,3 +1,4 @@
+/*----- Seeds added to SQL DB by table -----*/
 INSERT INTO department (name)
 VALUES  ('Service'),
         ('Installation'),
