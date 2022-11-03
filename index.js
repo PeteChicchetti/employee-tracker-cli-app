@@ -24,34 +24,34 @@ const db = mysql.createConnection(
 //     });
 // }
     
-function updateEmployeeRole() {
-    inquirer.prompt ([
-        {
-            type: 'input',
-            message: 'What is the employees first name?',
-            name: 'first_name'
-        },
-        {
-            type: 'input',
-            message: 'What is the employees last name?',
-            name: 'last_name'
-        },
-        {
-            type: 'input',
-            message: 'Input a number that corresponds to the NEW employee role. "1" for Lead Tech, "2" for Technician, "3" for Lead Installer, "4" for Installer or "5" for HR Admin.',
-            name: 'role_id'
-        },
-    ]).then(answers => {
-        db.query(`SELECT first_name, last_name, role_id FROM employee WHERE first_name = ${answers.first_name}, last_name = ${answers.last_name} UPDATE employee SET role_id = ${answers.role_id} WHERE first_name = ${answers.first_name}, last_name = ${answers.last_name} SELECT first_name, last_name, role_id FROM employee WHERE first_name = ${answers.first_name}, last_name = ${answers.last_name}`, answers, function (err, results) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(`Name: ${answers.name}`);
-                menu();
-            }
-        });
-    });
-}
+// function updateEmployeeRole() {
+//     inquirer.prompt ([
+//         {
+//             type: 'input',
+//             message: 'What is the employees first name?',
+//             name: 'first_name'
+//         },
+//         {
+//             type: 'input',
+//             message: 'What is the employees last name?',
+//             name: 'last_name'
+//         },
+//         {
+//             type: 'input',
+//             message: 'Input a number that corresponds to the NEW employee role. "1" for Lead Tech, "2" for Technician, "3" for Lead Installer, "4" for Installer or "5" for HR Admin.',
+//             name: 'role_id'
+//         },
+//     ]).then(answers => {
+//         db.query(`SELECT first_name, last_name, role_id FROM employee WHERE first_name = ${answers.first_name}, last_name = ${answers.last_name} UPDATE employee SET role_id = ${answers.role_id} WHERE last_name = ${answers.last_name} SELECT first_name, last_name, role_id FROM employee WHERE first_name = ${answers.first_name}, last_name = ${answers.last_name}`, answers, function (err, results) {
+//             if (err) {
+//                 console.log(err);
+//             } else {
+//                 console.log(`Name: ${answers.name}`);
+//                 menu();
+//             }
+//         });
+//     });
+// }
 
 
 function department() {
@@ -186,7 +186,7 @@ function menu() {
         } else if (answers.selection === 'Add Department') {
             department();
         } else if (answers.selection === 'Update Employee Role') {
-            updateEmployeeRole();
+            // updateEmployeeRole();
         }
         
     });
